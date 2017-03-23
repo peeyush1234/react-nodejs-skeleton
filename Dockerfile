@@ -7,5 +7,5 @@ WORKDIR /usr/src/app
 # Install Yarn and Node.js dependencies
 RUN npm install yarn --global --no-progress --silent --depth 0 && \
     yarn install --production --no-progress
-
+ENV LOG_DIR /var/log
 CMD [ "node", "server.js" ]

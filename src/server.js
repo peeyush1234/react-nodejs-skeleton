@@ -18,7 +18,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import UniversalRouter from 'universal-router';
 import PrettyError from 'pretty-error';
-import winston from 'winston';
+// import winston from 'winston';
+import DailyRotateFile from 'winston-daily-rotate-file';
 import expressWinston from 'express-winston';
 import App from './components/App';
 import Html from './components/Html';
@@ -29,7 +30,7 @@ import models from './data/models';
 import schema from './data/schema';
 import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
-import { port, auth } from './config';
+import { port, auth, logDir } from './config';
 
 const app = express();
 
@@ -51,11 +52,13 @@ app.use(bodyParser.json());
 //
 // Logging
 // -----------------------------------------------------------------------------
+const tsFormat = () => (new Date()).toLocaleTimeString();
 app.use(expressWinston.logger({
   transports: [
-    new winston.transports.Console({
-      json: true,
-      colorize: true,
+    new DailyRotateFile({
+      filename: `${logDir}/react-node-skeleton-app.log`,
+      timestamp: tsFormat,
+      level: __DEV__ ? 'verbose' : 'info',
     }),
   ],
   meta: true,
