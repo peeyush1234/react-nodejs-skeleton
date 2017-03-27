@@ -104,12 +104,6 @@ app.use('/graphql', expressGraphQL(req => ({
   pretty: __DEV__,
 })));
 
-// Let's encrypt setup
-// ----------------------
-app.get('/.well-known/acme-challenge/:name', (req, res) => {
-  res.sendFile(req.params.name, { root: './public' });
-});
-
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
