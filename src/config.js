@@ -9,10 +9,12 @@
 
 /* eslint-disable max-len */
 
-export const port = process.env.PORT || 3000;
+export const port = process.env.PORT || 1088;
+export const sslPort = process.env.SSL_PORT || 1089;
 export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 
 export const logDir = process.env.LOG_DIR || __dirname;
+export const certDir = process.env.CERT_DIR || '/tmp/react_node_cert';
 
 export const databaseUrl = process.env.DATABASE_URL || 'sqlite:database.sqlite';
 
