@@ -31,7 +31,7 @@ class Home extends React.Component {
               <div
                 className={s.newsDesc}
                 // eslint-disable-next-line react/no-danger
-                // dangerouslySetInnerHTML={{ __html: item.content }}
+                dangerouslySetInnerHTML={{ __html: item.content }}
               />
             </article>
           ))}

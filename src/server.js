@@ -8,10 +8,7 @@
  */
 
 import path from 'path';
-import fs from 'fs';
 import express from 'express';
-import http from 'http';
-import https from 'https';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
@@ -33,7 +30,7 @@ import models from './data/models';
 import schema from './data/schema';
 import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
-import { port, sslPort, auth, logDir, certDir } from './config';
+import { port, auth, logDir } from './config';
 
 const app = express();
 
@@ -178,25 +175,13 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.send(`<!doctype html>${html}`);
 });
 
-// certs
-// -------------
-const sslKey = fs.readFileSync(`${certDir}/private.key`);
-const cert = fs.readFileSync(`${certDir}/certificate.crt`);
-const sslOptions = {
-  key: sslKey,
-  cert,
-};
-
 //
 // Launch the server
 // -----------------------------------------------------------------------------
 /* eslint-disable no-console */
 models.sync().catch(err => console.error(err.stack)).then(() => {
-  http.createServer(app).listen(port, () => {
+  app.listen(port, () => {
     console.log(`The server is running at http://localhost:${port}/`);
-  });
-  https.createServer(sslOptions, app).listen(sslPort, () => {
-    console.log(`The server is running at https://localhost:${sslPort}/`);
   });
 });
 /* eslint-enable no-console */

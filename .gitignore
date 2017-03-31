@@ -60,7 +60,3 @@ typings/
 
 # database
 database.sqlite
-
-# certs
-*.crt
-*.key
